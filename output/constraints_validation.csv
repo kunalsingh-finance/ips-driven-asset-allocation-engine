@@ -1,0 +1,14 @@
+constraint_name,rule,actual_value,limit_value,pass_fail,comment
+Weights sum to 100%,Total recommended weights must equal 100%.,1.0,100.00%,PASS,Confirms the allocation is fully invested.
+No negative weights,All ETF weights must be greater than or equal to 0%.,0.0,>= 0.00%,PASS,Confirms no short positions are used.
+Max single ETF weight not breached,Each ETF must remain within the IPS single-position limit.,0.15000000000000008,<= 30.00%,PASS,Limits concentration in any one ETF.
+Equity allocation within IPS range,Equity allocation must remain within the IPS range.,0.45000000000000023,45.00% - 70.00%,PASS,Recommended equity exposure is within policy.
+Fixed Income allocation within IPS range,Fixed Income allocation must remain within the IPS range.,0.39957708864785774,20.00% - 45.00%,PASS,Recommended fixed income exposure is within policy.
+Alternatives allocation within IPS range,Alternatives allocation must remain within the IPS range.,0.08646315260853621,5.00% - 20.00%,PASS,Recommended alternatives exposure is within policy.
+Cash allocation within IPS range,Cash allocation must remain within the IPS range.,0.06395975874360593,0.00% - 10.00%,PASS,Recommended cash exposure is within policy.
+SPY minimum satisfied,SPY weight must be at least 15.00%.,0.15000000000000005,>= 15.00%,PASS,SPY policy test is satisfied.
+AGG minimum satisfied,AGG weight must be at least 15.00%.,0.15000000000000008,>= 15.00%,PASS,AGG policy test is satisfied.
+HYG cap satisfied,HYG weight must not exceed 10.00%.,0.043275679107637924,<= 10.00%,PASS,HYG policy test is satisfied.
+EFA cap satisfied,EFA weight must not exceed 20.00%.,0.11722361607137564,<= 20.00%,PASS,EFA policy test is satisfied.
+TLT cap satisfied,TLT weight must not exceed 15.00%.,0.09556536045220174,<= 15.00%,PASS,TLT policy test is satisfied.
+GLD cap satisfied,GLD weight must not exceed 7.50%.,0.05301083434226278,<= 7.50%,PASS,GLD policy test is satisfied.

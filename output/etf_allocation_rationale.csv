@@ -1,0 +1,15 @@
+ticker,asset_class,target_weight,portfolio_role,reason_for_inclusion,key_risk
+SPY,Equity,0.15000000000000005,Core U.S. equity exposure,Broad large-cap U.S. equity beta and primary growth anchor.,Equity market drawdowns and valuation compression.
+QQQ,Equity,0.09903144054012641,Growth equity tilt,Adds exposure to growth-oriented and technology-heavy U.S. companies.,Higher valuation sensitivity and sector concentration.
+IWM,Equity,0.011696318838348686,Small-cap exposure,Diversifies U.S. equity exposure beyond large-cap stocks.,Higher cyclicality and liquidity sensitivity.
+EFA,Equity,0.11722361607137564,Developed international diversification,Broadens equity exposure outside the United States.,Currency exposure and non-U.S. economic weakness.
+EEM,Equity,0.07204862455014942,Emerging market growth/risk exposure,Adds long-term emerging market growth potential within a capped sleeve.,"Political, currency, liquidity, and drawdown risk."
+AGG,Fixed Income,0.15000000000000008,Core bond ballast,Provides diversified investment-grade bond exposure and portfolio ballast.,Interest-rate risk and spread widening.
+TLT,Fixed Income,0.09556536045220174,Duration / equity drawdown hedge,Adds long-duration Treasury exposure that may help in growth shocks.,Rate shock and inflation sensitivity.
+SHY,Fixed Income,0.04912644339134848,Short-duration stability,Reduces duration risk and supports liquidity within fixed income.,Lower return potential if risk assets rally.
+LQD,Fixed Income,0.06160960569666953,Investment-grade credit income,Adds credit income while remaining higher quality than high yield.,Credit spread widening and rate sensitivity.
+HYG,Fixed Income,0.043275679107637924,Capped high-yield credit exposure,Provides incremental income potential with an explicit cap.,Can behave like equity during credit stress.
+VNQ,Alternatives,0.03345231826627342,Real estate / real asset exposure,Adds listed real estate exposure and potential inflation sensitivity.,Rate sensitivity and real estate sector drawdowns.
+GLD,Alternatives,0.05301083434226278,Gold / inflation and crisis hedge,"Diversifies against equity, currency, and inflation shocks.",No income generation and potential real-rate sensitivity.
+DBC,Alternatives,0.0,Commodity real asset exposure,Adds inflation-sensitive commodity exposure where the IPS permits it.,Commodity volatility and roll-yield drag.
+SGOV,Cash,0.06395975874360593,Cash / liquidity / T-bill proxy,"Provides liquidity, stability, and rebalancing flexibility.",Reinvestment risk and opportunity cost in risk-on markets.

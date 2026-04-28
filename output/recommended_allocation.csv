@@ -1,0 +1,43 @@
+profile_name,portfolio_name,ticker,asset_class,weight
+Capital Preservation,IPS Recommended Portfolio,SPY,Equity,0.1062521081834581
+Capital Preservation,IPS Recommended Portfolio,QQQ,Equity,0.013271937554875388
+Capital Preservation,IPS Recommended Portfolio,IWM,Equity,4.3055429013411334e-16
+Capital Preservation,IPS Recommended Portfolio,EFA,Equity,0.06623096328846031
+Capital Preservation,IPS Recommended Portfolio,EEM,Equity,6.445866776314213e-18
+Capital Preservation,IPS Recommended Portfolio,AGG,Fixed Income,0.19097327598971472
+Capital Preservation,IPS Recommended Portfolio,TLT,Fixed Income,0.1
+Capital Preservation,IPS Recommended Portfolio,SHY,Fixed Income,0.1640856896923683
+Capital Preservation,IPS Recommended Portfolio,LQD,Fixed Income,0.08368717707314272
+Capital Preservation,IPS Recommended Portfolio,HYG,Fixed Income,0.030557813900063097
+Capital Preservation,IPS Recommended Portfolio,VNQ,Alternatives,0.03770957598462435
+Capital Preservation,IPS Recommended Portfolio,GLD,Alternatives,0.062290424015375774
+Capital Preservation,IPS Recommended Portfolio,DBC,Alternatives,0.0
+Capital Preservation,IPS Recommended Portfolio,SGOV,Cash,0.14494103431791702
+Balanced Growth,IPS Recommended Portfolio,SPY,Equity,0.15000000000000005
+Balanced Growth,IPS Recommended Portfolio,QQQ,Equity,0.09903144054012641
+Balanced Growth,IPS Recommended Portfolio,IWM,Equity,0.011696318838348686
+Balanced Growth,IPS Recommended Portfolio,EFA,Equity,0.11722361607137564
+Balanced Growth,IPS Recommended Portfolio,EEM,Equity,0.07204862455014942
+Balanced Growth,IPS Recommended Portfolio,AGG,Fixed Income,0.15000000000000008
+Balanced Growth,IPS Recommended Portfolio,TLT,Fixed Income,0.09556536045220174
+Balanced Growth,IPS Recommended Portfolio,SHY,Fixed Income,0.04912644339134848
+Balanced Growth,IPS Recommended Portfolio,LQD,Fixed Income,0.06160960569666953
+Balanced Growth,IPS Recommended Portfolio,HYG,Fixed Income,0.043275679107637924
+Balanced Growth,IPS Recommended Portfolio,VNQ,Alternatives,0.03345231826627342
+Balanced Growth,IPS Recommended Portfolio,GLD,Alternatives,0.05301083434226278
+Balanced Growth,IPS Recommended Portfolio,DBC,Alternatives,0.0
+Balanced Growth,IPS Recommended Portfolio,SGOV,Cash,0.06395975874360593
+Long-Term Endowment Growth,IPS Recommended Portfolio,SPY,Equity,0.20000000000000012
+Long-Term Endowment Growth,IPS Recommended Portfolio,QQQ,Equity,0.08715007965600564
+Long-Term Endowment Growth,IPS Recommended Portfolio,IWM,Equity,0.029999999999999992
+Long-Term Endowment Growth,IPS Recommended Portfolio,EFA,Equity,0.11426414615412121
+Long-Term Endowment Growth,IPS Recommended Portfolio,EEM,Equity,0.06858577418987284
+Long-Term Endowment Growth,IPS Recommended Portfolio,AGG,Fixed Income,0.0988910460232486
+Long-Term Endowment Growth,IPS Recommended Portfolio,TLT,Fixed Income,0.07201133979896199
+Long-Term Endowment Growth,IPS Recommended Portfolio,SHY,Fixed Income,0.035382152337416824
+Long-Term Endowment Growth,IPS Recommended Portfolio,LQD,Fixed Income,0.050326375217257406
+Long-Term Endowment Growth,IPS Recommended Portfolio,HYG,Fixed Income,0.03780715838267498
+Long-Term Endowment Growth,IPS Recommended Portfolio,VNQ,Alternatives,0.054257051717134956
+Long-Term Endowment Growth,IPS Recommended Portfolio,GLD,Alternatives,0.06937215852010349
+Long-Term Endowment Growth,IPS Recommended Portfolio,DBC,Alternatives,0.020000000000000077
+Long-Term Endowment Growth,IPS Recommended Portfolio,SGOV,Cash,0.06195271800320167

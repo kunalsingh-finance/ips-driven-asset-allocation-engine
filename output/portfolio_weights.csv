@@ -1,0 +1,211 @@
+profile_name,portfolio_name,ticker,asset_class,weight
+Capital Preservation,Equal Weight Portfolio,SPY,Equity,0.15
+Capital Preservation,Equal Weight Portfolio,QQQ,Equity,0.02
+Capital Preservation,Equal Weight Portfolio,IWM,Equity,0.0
+Capital Preservation,Equal Weight Portfolio,EFA,Equity,0.03
+Capital Preservation,Equal Weight Portfolio,EEM,Equity,0.0
+Capital Preservation,Equal Weight Portfolio,AGG,Fixed Income,0.25
+Capital Preservation,Equal Weight Portfolio,TLT,Fixed Income,0.05
+Capital Preservation,Equal Weight Portfolio,SHY,Fixed Income,0.2
+Capital Preservation,Equal Weight Portfolio,LQD,Fixed Income,0.1
+Capital Preservation,Equal Weight Portfolio,HYG,Fixed Income,0.03
+Capital Preservation,Equal Weight Portfolio,VNQ,Alternatives,0.02
+Capital Preservation,Equal Weight Portfolio,GLD,Alternatives,0.03
+Capital Preservation,Equal Weight Portfolio,DBC,Alternatives,0.0
+Capital Preservation,Equal Weight Portfolio,SGOV,Cash,0.12
+Capital Preservation,Minimum Volatility Portfolio,SPY,Equity,0.10000000000000007
+Capital Preservation,Minimum Volatility Portfolio,QQQ,Equity,6.02116006937393e-19
+Capital Preservation,Minimum Volatility Portfolio,IWM,Equity,0.0054097151727570784
+Capital Preservation,Minimum Volatility Portfolio,EFA,Equity,0.044590284827242914
+Capital Preservation,Minimum Volatility Portfolio,EEM,Equity,0.0
+Capital Preservation,Minimum Volatility Portfolio,AGG,Fixed Income,0.25
+Capital Preservation,Minimum Volatility Portfolio,TLT,Fixed Income,3.053499009546593e-17
+Capital Preservation,Minimum Volatility Portfolio,SHY,Fixed Income,0.24999999999999997
+Capital Preservation,Minimum Volatility Portfolio,LQD,Fixed Income,0.09999999999999999
+Capital Preservation,Minimum Volatility Portfolio,HYG,Fixed Income,1.6698085379338987e-18
+Capital Preservation,Minimum Volatility Portfolio,VNQ,Alternatives,1.5722969152245298e-17
+Capital Preservation,Minimum Volatility Portfolio,GLD,Alternatives,0.0
+Capital Preservation,Minimum Volatility Portfolio,DBC,Alternatives,0.0
+Capital Preservation,Minimum Volatility Portfolio,SGOV,Cash,0.25
+Capital Preservation,Max Sharpe Portfolio,SPY,Equity,0.10000000000000014
+Capital Preservation,Max Sharpe Portfolio,QQQ,Equity,0.0
+Capital Preservation,Max Sharpe Portfolio,IWM,Equity,0.0
+Capital Preservation,Max Sharpe Portfolio,EFA,Equity,0.06999999999999985
+Capital Preservation,Max Sharpe Portfolio,EEM,Equity,0.0
+Capital Preservation,Max Sharpe Portfolio,AGG,Fixed Income,0.24999999999999944
+Capital Preservation,Max Sharpe Portfolio,TLT,Fixed Income,0.09999999999999978
+Capital Preservation,Max Sharpe Portfolio,SHY,Fixed Income,0.14359502671553337
+Capital Preservation,Max Sharpe Portfolio,LQD,Fixed Income,0.018417893273204165
+Capital Preservation,Max Sharpe Portfolio,HYG,Fixed Income,0.04999999999999989
+Capital Preservation,Max Sharpe Portfolio,VNQ,Alternatives,0.002295914206801514
+Capital Preservation,Max Sharpe Portfolio,GLD,Alternatives,0.05621337080996763
+Capital Preservation,Max Sharpe Portfolio,DBC,Alternatives,0.0
+Capital Preservation,Max Sharpe Portfolio,SGOV,Cash,0.20947779499449415
+Capital Preservation,Target Volatility Portfolio,SPY,Equity,0.1109439095681975
+Capital Preservation,Target Volatility Portfolio,QQQ,Equity,0.017554224813122722
+Capital Preservation,Target Volatility Portfolio,IWM,Equity,0.009440305808376638
+Capital Preservation,Target Volatility Portfolio,EFA,Equity,0.057067679136330006
+Capital Preservation,Target Volatility Portfolio,EEM,Equity,0.014896434827678889
+Capital Preservation,Target Volatility Portfolio,AGG,Fixed Income,0.1837852790203793
+Capital Preservation,Target Volatility Portfolio,TLT,Fixed Income,0.0778435408980057
+Capital Preservation,Target Volatility Portfolio,SHY,Fixed Income,0.1761172751333263
+Capital Preservation,Target Volatility Portfolio,LQD,Fixed Income,0.08620105061252688
+Capital Preservation,Target Volatility Portfolio,HYG,Fixed Income,0.026052854335761755
+Capital Preservation,Target Volatility Portfolio,VNQ,Alternatives,0.036515852811013744
+Capital Preservation,Target Volatility Portfolio,GLD,Alternatives,0.036281509984370006
+Capital Preservation,Target Volatility Portfolio,DBC,Alternatives,0.02720263720461629
+Capital Preservation,Target Volatility Portfolio,SGOV,Cash,0.1400974458462942
+Capital Preservation,IPS Recommended Portfolio,SPY,Equity,0.1062521081834581
+Capital Preservation,IPS Recommended Portfolio,QQQ,Equity,0.013271937554875388
+Capital Preservation,IPS Recommended Portfolio,IWM,Equity,4.3055429013411334e-16
+Capital Preservation,IPS Recommended Portfolio,EFA,Equity,0.06623096328846031
+Capital Preservation,IPS Recommended Portfolio,EEM,Equity,6.445866776314213e-18
+Capital Preservation,IPS Recommended Portfolio,AGG,Fixed Income,0.19097327598971472
+Capital Preservation,IPS Recommended Portfolio,TLT,Fixed Income,0.1
+Capital Preservation,IPS Recommended Portfolio,SHY,Fixed Income,0.1640856896923683
+Capital Preservation,IPS Recommended Portfolio,LQD,Fixed Income,0.08368717707314272
+Capital Preservation,IPS Recommended Portfolio,HYG,Fixed Income,0.030557813900063097
+Capital Preservation,IPS Recommended Portfolio,VNQ,Alternatives,0.03770957598462435
+Capital Preservation,IPS Recommended Portfolio,GLD,Alternatives,0.062290424015375774
+Capital Preservation,IPS Recommended Portfolio,DBC,Alternatives,0.0
+Capital Preservation,IPS Recommended Portfolio,SGOV,Cash,0.14494103431791702
+Balanced Growth,Equal Weight Portfolio,SPY,Equity,0.19999999999999996
+Balanced Growth,Equal Weight Portfolio,QQQ,Equity,0.09999999999999998
+Balanced Growth,Equal Weight Portfolio,IWM,Equity,0.04999999999999999
+Balanced Growth,Equal Weight Portfolio,EFA,Equity,0.09999999999999998
+Balanced Growth,Equal Weight Portfolio,EEM,Equity,0.04999999999999999
+Balanced Growth,Equal Weight Portfolio,AGG,Fixed Income,0.19999999999999996
+Balanced Growth,Equal Weight Portfolio,TLT,Fixed Income,0.04999999999999999
+Balanced Growth,Equal Weight Portfolio,SHY,Fixed Income,0.029999999999999992
+Balanced Growth,Equal Weight Portfolio,LQD,Fixed Income,0.06999999999999999
+Balanced Growth,Equal Weight Portfolio,HYG,Fixed Income,0.04999999999999999
+Balanced Growth,Equal Weight Portfolio,VNQ,Alternatives,0.024999999999999994
+Balanced Growth,Equal Weight Portfolio,GLD,Alternatives,0.024999999999999994
+Balanced Growth,Equal Weight Portfolio,DBC,Alternatives,0.0
+Balanced Growth,Equal Weight Portfolio,SGOV,Cash,0.04999999999999999
+Balanced Growth,Minimum Volatility Portfolio,SPY,Equity,0.29236877803037364
+Balanced Growth,Minimum Volatility Portfolio,QQQ,Equity,0.0
+Balanced Growth,Minimum Volatility Portfolio,IWM,Equity,9.059003352290619e-16
+Balanced Growth,Minimum Volatility Portfolio,EFA,Equity,0.15763122196962492
+Balanced Growth,Minimum Volatility Portfolio,EEM,Equity,0.0
+Balanced Growth,Minimum Volatility Portfolio,AGG,Fixed Income,0.14999999999999983
+Balanced Growth,Minimum Volatility Portfolio,TLT,Fixed Income,0.0
+Balanced Growth,Minimum Volatility Portfolio,SHY,Fixed Income,0.2999999999999988
+Balanced Growth,Minimum Volatility Portfolio,LQD,Fixed Income,5.112865389301176e-16
+Balanced Growth,Minimum Volatility Portfolio,HYG,Fixed Income,0.0
+Balanced Growth,Minimum Volatility Portfolio,VNQ,Alternatives,0.0
+Balanced Growth,Minimum Volatility Portfolio,GLD,Alternatives,0.04999999999999999
+Balanced Growth,Minimum Volatility Portfolio,DBC,Alternatives,0.0
+Balanced Growth,Minimum Volatility Portfolio,SGOV,Cash,0.05000000000000136
+Balanced Growth,Max Sharpe Portfolio,SPY,Equity,0.1500000000000014
+Balanced Growth,Max Sharpe Portfolio,QQQ,Equity,0.08585476245322599
+Balanced Growth,Max Sharpe Portfolio,IWM,Equity,1.2153843441457684e-15
+Balanced Growth,Max Sharpe Portfolio,EFA,Equity,0.1914695520240541
+Balanced Growth,Max Sharpe Portfolio,EEM,Equity,0.022675685522720715
+Balanced Growth,Max Sharpe Portfolio,AGG,Fixed Income,0.19880866914283807
+Balanced Growth,Max Sharpe Portfolio,TLT,Fixed Income,0.1499999999999979
+Balanced Growth,Max Sharpe Portfolio,SHY,Fixed Income,0.0
+Balanced Growth,Max Sharpe Portfolio,LQD,Fixed Income,4.216437602680991e-16
+Balanced Growth,Max Sharpe Portfolio,HYG,Fixed Income,0.09999999999999898
+Balanced Growth,Max Sharpe Portfolio,VNQ,Alternatives,1.5030147598075367e-15
+Balanced Growth,Max Sharpe Portfolio,GLD,Alternatives,0.04999999999999915
+Balanced Growth,Max Sharpe Portfolio,DBC,Alternatives,5.451491925313467e-16
+Balanced Growth,Max Sharpe Portfolio,SGOV,Cash,0.05119133085715997
+Balanced Growth,Target Volatility Portfolio,SPY,Equity,0.15000000000000002
+Balanced Growth,Target Volatility Portfolio,QQQ,Equity,0.08111912044275744
+Balanced Growth,Target Volatility Portfolio,IWM,Equity,0.06651011299834098
+Balanced Growth,Target Volatility Portfolio,EFA,Equity,0.07988369242343032
+Balanced Growth,Target Volatility Portfolio,EEM,Equity,0.07248707413547129
+Balanced Growth,Target Volatility Portfolio,AGG,Fixed Income,0.15000000000000002
+Balanced Growth,Target Volatility Portfolio,TLT,Fixed Income,0.05583060564246682
+Balanced Growth,Target Volatility Portfolio,SHY,Fixed Income,0.0476811327545428
+Balanced Growth,Target Volatility Portfolio,LQD,Fixed Income,0.0583438295184246
+Balanced Growth,Target Volatility Portfolio,HYG,Fixed Income,0.03247606864872828
+Balanced Growth,Target Volatility Portfolio,VNQ,Alternatives,0.05562662095051884
+Balanced Growth,Target Volatility Portfolio,GLD,Alternatives,0.05256132954438913
+Balanced Growth,Target Volatility Portfolio,DBC,Alternatives,0.04507416210875361
+Balanced Growth,Target Volatility Portfolio,SGOV,Cash,0.05240625083217583
+Balanced Growth,IPS Recommended Portfolio,SPY,Equity,0.15000000000000005
+Balanced Growth,IPS Recommended Portfolio,QQQ,Equity,0.09903144054012641
+Balanced Growth,IPS Recommended Portfolio,IWM,Equity,0.011696318838348686
+Balanced Growth,IPS Recommended Portfolio,EFA,Equity,0.11722361607137564
+Balanced Growth,IPS Recommended Portfolio,EEM,Equity,0.07204862455014942
+Balanced Growth,IPS Recommended Portfolio,AGG,Fixed Income,0.15000000000000008
+Balanced Growth,IPS Recommended Portfolio,TLT,Fixed Income,0.09556536045220174
+Balanced Growth,IPS Recommended Portfolio,SHY,Fixed Income,0.04912644339134848
+Balanced Growth,IPS Recommended Portfolio,LQD,Fixed Income,0.06160960569666953
+Balanced Growth,IPS Recommended Portfolio,HYG,Fixed Income,0.043275679107637924
+Balanced Growth,IPS Recommended Portfolio,VNQ,Alternatives,0.03345231826627342
+Balanced Growth,IPS Recommended Portfolio,GLD,Alternatives,0.05301083434226278
+Balanced Growth,IPS Recommended Portfolio,DBC,Alternatives,0.0
+Balanced Growth,IPS Recommended Portfolio,SGOV,Cash,0.06395975874360593
+Long-Term Endowment Growth,Equal Weight Portfolio,SPY,Equity,0.21999999999999995
+Long-Term Endowment Growth,Equal Weight Portfolio,QQQ,Equity,0.11999999999999997
+Long-Term Endowment Growth,Equal Weight Portfolio,IWM,Equity,0.07999999999999999
+Long-Term Endowment Growth,Equal Weight Portfolio,EFA,Equity,0.14999999999999997
+Long-Term Endowment Growth,Equal Weight Portfolio,EEM,Equity,0.07999999999999999
+Long-Term Endowment Growth,Equal Weight Portfolio,AGG,Fixed Income,0.09999999999999998
+Long-Term Endowment Growth,Equal Weight Portfolio,TLT,Fixed Income,0.0
+Long-Term Endowment Growth,Equal Weight Portfolio,SHY,Fixed Income,0.0
+Long-Term Endowment Growth,Equal Weight Portfolio,LQD,Fixed Income,0.039999999999999994
+Long-Term Endowment Growth,Equal Weight Portfolio,HYG,Fixed Income,0.029999999999999992
+Long-Term Endowment Growth,Equal Weight Portfolio,VNQ,Alternatives,0.04999999999999999
+Long-Term Endowment Growth,Equal Weight Portfolio,GLD,Alternatives,0.04999999999999999
+Long-Term Endowment Growth,Equal Weight Portfolio,DBC,Alternatives,0.029999999999999992
+Long-Term Endowment Growth,Equal Weight Portfolio,SGOV,Cash,0.04999999999999999
+Long-Term Endowment Growth,Minimum Volatility Portfolio,SPY,Equity,0.24999999999999975
+Long-Term Endowment Growth,Minimum Volatility Portfolio,QQQ,Equity,2.3873886613730987e-17
+Long-Term Endowment Growth,Minimum Volatility Portfolio,IWM,Equity,0.029999999999999985
+Long-Term Endowment Growth,Minimum Volatility Portfolio,EFA,Equity,0.18999999999999995
+Long-Term Endowment Growth,Minimum Volatility Portfolio,EEM,Equity,0.03000000000000006
+Long-Term Endowment Growth,Minimum Volatility Portfolio,AGG,Fixed Income,0.08000000000000021
+Long-Term Endowment Growth,Minimum Volatility Portfolio,TLT,Fixed Income,1.0740145323030678e-16
+Long-Term Endowment Growth,Minimum Volatility Portfolio,SHY,Fixed Income,0.21999999999999936
+Long-Term Endowment Growth,Minimum Volatility Portfolio,LQD,Fixed Income,0.0
+Long-Term Endowment Growth,Minimum Volatility Portfolio,HYG,Fixed Income,1.5909297959265583e-17
+Long-Term Endowment Growth,Minimum Volatility Portfolio,VNQ,Alternatives,0.029999999999999985
+Long-Term Endowment Growth,Minimum Volatility Portfolio,GLD,Alternatives,0.049999999999999975
+Long-Term Endowment Growth,Minimum Volatility Portfolio,DBC,Alternatives,0.01999999999999999
+Long-Term Endowment Growth,Minimum Volatility Portfolio,SGOV,Cash,0.1000000000000004
+Long-Term Endowment Growth,Max Sharpe Portfolio,SPY,Equity,0.20000000000000134
+Long-Term Endowment Growth,Max Sharpe Portfolio,QQQ,Equity,0.07059919853643501
+Long-Term Endowment Growth,Max Sharpe Portfolio,IWM,Equity,0.030000000000001935
+Long-Term Endowment Growth,Max Sharpe Portfolio,EFA,Equity,0.16518025595268584
+Long-Term Endowment Growth,Max Sharpe Portfolio,EEM,Equity,0.034220545510880974
+Long-Term Endowment Growth,Max Sharpe Portfolio,AGG,Fixed Income,0.07999999999999995
+Long-Term Endowment Growth,Max Sharpe Portfolio,TLT,Fixed Income,0.1284971121668406
+Long-Term Endowment Growth,Max Sharpe Portfolio,SHY,Fixed Income,0.0
+Long-Term Endowment Growth,Max Sharpe Portfolio,LQD,Fixed Income,3.5395044698773856e-16
+Long-Term Endowment Growth,Max Sharpe Portfolio,HYG,Fixed Income,0.09150288783315466
+Long-Term Endowment Growth,Max Sharpe Portfolio,VNQ,Alternatives,0.049554216080241964
+Long-Term Endowment Growth,Max Sharpe Portfolio,GLD,Alternatives,0.0804457839197574
+Long-Term Endowment Growth,Max Sharpe Portfolio,DBC,Alternatives,0.02000000000000045
+Long-Term Endowment Growth,Max Sharpe Portfolio,SGOV,Cash,0.04999999999999954
+Long-Term Endowment Growth,Target Volatility Portfolio,SPY,Equity,0.20000000000000004
+Long-Term Endowment Growth,Target Volatility Portfolio,QQQ,Equity,0.08895009648834395
+Long-Term Endowment Growth,Target Volatility Portfolio,IWM,Equity,0.07650377966155536
+Long-Term Endowment Growth,Target Volatility Portfolio,EFA,Equity,0.09311728286566025
+Long-Term Endowment Growth,Target Volatility Portfolio,EEM,Equity,0.08466422021573562
+Long-Term Endowment Growth,Target Volatility Portfolio,AGG,Fixed Income,0.08
+Long-Term Endowment Growth,Target Volatility Portfolio,TLT,Fixed Income,0.04620610179545436
+Long-Term Endowment Growth,Target Volatility Portfolio,SHY,Fixed Income,0.04221384918900718
+Long-Term Endowment Growth,Target Volatility Portfolio,LQD,Fixed Income,0.0536794049823126
+Long-Term Endowment Growth,Target Volatility Portfolio,HYG,Fixed Income,0.03090487098435517
+Long-Term Endowment Growth,Target Volatility Portfolio,VNQ,Alternatives,0.055334576594484694
+Long-Term Endowment Growth,Target Volatility Portfolio,GLD,Alternatives,0.049848384302258276
+Long-Term Endowment Growth,Target Volatility Portfolio,DBC,Alternatives,0.04481703910325699
+Long-Term Endowment Growth,Target Volatility Portfolio,SGOV,Cash,0.05376039381757562
+Long-Term Endowment Growth,IPS Recommended Portfolio,SPY,Equity,0.20000000000000012
+Long-Term Endowment Growth,IPS Recommended Portfolio,QQQ,Equity,0.08715007965600564
+Long-Term Endowment Growth,IPS Recommended Portfolio,IWM,Equity,0.029999999999999992
+Long-Term Endowment Growth,IPS Recommended Portfolio,EFA,Equity,0.11426414615412121
+Long-Term Endowment Growth,IPS Recommended Portfolio,EEM,Equity,0.06858577418987284
+Long-Term Endowment Growth,IPS Recommended Portfolio,AGG,Fixed Income,0.0988910460232486
+Long-Term Endowment Growth,IPS Recommended Portfolio,TLT,Fixed Income,0.07201133979896199
+Long-Term Endowment Growth,IPS Recommended Portfolio,SHY,Fixed Income,0.035382152337416824
+Long-Term Endowment Growth,IPS Recommended Portfolio,LQD,Fixed Income,0.050326375217257406
+Long-Term Endowment Growth,IPS Recommended Portfolio,HYG,Fixed Income,0.03780715838267498
+Long-Term Endowment Growth,IPS Recommended Portfolio,VNQ,Alternatives,0.054257051717134956
+Long-Term Endowment Growth,IPS Recommended Portfolio,GLD,Alternatives,0.06937215852010349
+Long-Term Endowment Growth,IPS Recommended Portfolio,DBC,Alternatives,0.020000000000000077
+Long-Term Endowment Growth,IPS Recommended Portfolio,SGOV,Cash,0.06195271800320167

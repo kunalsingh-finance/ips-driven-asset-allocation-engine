@@ -1,0 +1,4 @@
+profile_name,return_objective,max_volatility_target,max_drawdown_tolerance,min_equity_allocation,max_equity_allocation,min_fixed_income_allocation,max_fixed_income_allocation,min_alternatives_allocation,max_alternatives_allocation,min_cash_allocation,max_cash_allocation,max_single_etf_weight,rebalancing_threshold,benchmark_definition
+Capital Preservation,"Preserve capital, maintain liquidity, and earn a modest return above cash.",0.08,0.15,0.15,0.25,0.55,0.75,0.0,0.1,0.1,0.25,0.25,0.03,SPY:0.3000; AGG:0.6000; SGOV:0.1000
+Balanced Growth,Compound capital with a balanced mix of growth assets and high-quality ballast.,0.13,0.25,0.45,0.7,0.2,0.45,0.05,0.2,0.0,0.1,0.3,0.05,SPY:0.6000; AGG:0.4000
+Long-Term Endowment Growth,Maximize long-term real return while accepting meaningful interim volatility.,0.17,0.35,0.5,0.8,0.1,0.3,0.1,0.15,0.0,0.1,0.25,0.05,SPY:0.4500; EFA:0.1500; EEM:0.1000; AGG:0.1500; VNQ:0.0500; GLD:0.0500; SGOV:0.0500
