@@ -170,12 +170,15 @@ and exported with per-asset provenance and exact saved-input hashes. The fixed
 end date supports repeatable demonstration output; use `--end` to change it.
 
 `python main.py --data-mode market --end 2026-05-31` requires every ETF from
-Stooq and complete Kenneth French factor coverage. Missing ETFs or factor data
+Yahoo Finance adjusted closes and complete Kenneth French factor coverage. Missing ETFs or factor data
 stop the run, rather than introducing synthetic replacements. Incomplete common
 return months are dropped and recorded; missing returns and benchmarks are not
-filled with zero. Stooq Close distribution adjustments are not independently
-verified, so these are labeled price-return diagnostics rather than assured
-total-return observations. Source responses remain mutable.
+filled with zero. `--end` is inclusive; a mid-month end excludes that partial
+month from monthly diagnostics. Yahoo's adjusted prices account for distributions
+and splits according to its vendor convention; these mutable source responses
+are not a fund accounting or independently reconciled total-return series.
+Stooq's previous download endpoint returned HTTP 404 during the October 2026
+functional check, so market mode now uses the explicit Yahoo source above.
 
 Inspect `output/data_provenance.json`, `data/processed/monthly_returns_provenance.json`
 and `data/processed/factor_provenance.json`. IPS profiles and rebalancing drift are

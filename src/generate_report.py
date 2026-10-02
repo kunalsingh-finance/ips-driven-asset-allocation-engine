@@ -320,7 +320,8 @@ def _format_workbook(path: Path) -> None:
         for column_cells in sheet.columns:
             column_letter = get_column_letter(column_cells[0].column)
             header = str(column_cells[0].value or "")
-            width = min(max(len(header), *(len(str(cell.value)) for cell in column_cells[1:] if cell.value is not None)) + 2, 48)
+            lengths = [len(header), *(len(str(cell.value)) for cell in column_cells[1:] if cell.value is not None)]
+            width = min(max(lengths) + 2, 48)
             sheet.column_dimensions[column_letter].width = width
             if header in PERCENT_COLUMNS:
                 for cell in column_cells[1:]:
@@ -332,6 +333,8 @@ def _format_workbook(path: Path) -> None:
                 for cell in column_cells[1:]:
                     cell.number_format = "0.00"
 
+            if max_row < 2:
+                continue
             if header in {
                 "annualized_return",
                 "best_month",

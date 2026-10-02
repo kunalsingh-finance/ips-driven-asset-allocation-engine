@@ -26,38 +26,35 @@ def calculate_monthly_returns(daily_prices: pd.DataFrame) -> pd.DataFrame:
     return returns.dropna(axis=1, how="all")
 
 
-def _fetch_stooq_close(ticker: str, start: str, end: str) -> pd.Series | None:
-    try:
-        from pandas_datareader import data as pdr
-
-        symbol = f"{ticker}.US"
-        frame = pdr.DataReader(symbol, "stooq", start=start, end=end)
-        if frame.empty or "Close" not in frame:
-            return None
-        close = frame["Close"].sort_index()
-        close.name = ticker
-        return close
-    except Exception:
-        return None
-
-
 def fetch_daily_prices(
     tickers: list[str] | None = None,
     start: str = "2015-01-01",
     end: str | None = None,
 ) -> pd.DataFrame:
-    """Fetch public ETF daily closes where available."""
+    """Fetch Yahoo adjusted closes; end is an inclusive calendar date."""
+    import yfinance as yf
+
     tickers = list(ETF_UNIVERSE) if tickers is None else tickers
     end = pd.Timestamp.today().strftime("%Y-%m-%d") if end is None else end
-    closes = []
-    for ticker in tickers:
-        close = _fetch_stooq_close(ticker, start, end)
-        if close is not None and close.notna().sum() > 250:
-            closes.append(close)
-    if not closes:
-        return pd.DataFrame()
-    prices = pd.concat(closes, axis=1).sort_index()
-    return prices.dropna(how="all")
+    if not tickers or len(set(tickers)) != len(tickers):
+        raise ValueError("Market symbols must be nonempty and unique.")
+    if pd.Timestamp(start) > pd.Timestamp(end):
+        raise ValueError("Market start must not follow the inclusive end date.")
+    # Yahoo's end is exclusive. Advance it to honor this workflow's inclusive date.
+    exclusive_end = (pd.Timestamp(end) + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
+    raw = yf.download(tickers, start=start, end=exclusive_end, auto_adjust=False,
+                      progress=False, group_by="column", threads=False, timeout=20)
+    if raw is None or raw.empty:
+        raise ValueError("Yahoo Finance returned no market prices; synthetic fallback is disabled.")
+    if isinstance(raw.columns, pd.MultiIndex):
+        if "Adj Close" not in raw.columns.get_level_values(0):
+            raise ValueError("Market mode requires Yahoo adjusted closes; unadjusted Close is not a substitute.")
+        prices = raw["Adj Close"].copy()
+    else:
+        if len(tickers) != 1 or "Adj Close" not in raw.columns:
+            raise ValueError("Market response is missing adjusted closes for the requested symbols.")
+        prices = raw[["Adj Close"]].rename(columns={"Adj Close": tickers[0]})
+    return prices.reindex(columns=tickers).sort_index().dropna(axis=1, how="all").dropna(how="all")
 
 
 def generate_fallback_monthly_returns(
@@ -208,15 +205,18 @@ def fetch_or_generate_monthly_returns(
         if missing:
             raise ValueError(f"Market mode requires every ETF; unavailable: {', '.join(missing)}. Use explicit synthetic mode for an offline demo.")
         live_returns = calculate_monthly_returns(daily_prices).reindex(columns=tickers)
-        dropped_months = live_returns.index[live_returns.isna().any(axis=1)].strftime("%Y-%m-%d").tolist()
-        monthly_returns = live_returns.dropna(how="any")
+        requested_end = pd.Timestamp(end or pd.Timestamp.today()).normalize()
+        complete_end = requested_end if requested_end.is_month_end else requested_end.to_period("M").start_time - pd.Timedelta(days=1)
+        incomplete = live_returns.isna().any(axis=1) | (live_returns.index > complete_end)
+        dropped_months = live_returns.index[incomplete].strftime("%Y-%m-%d").tolist()
+        monthly_returns = live_returns.loc[~incomplete]
         if not np.isfinite(monthly_returns.to_numpy()).all():
             raise ValueError("Computed market returns must be finite.")
         if len(monthly_returns) < 36:
             raise ValueError("Market mode requires at least 36 complete common months; no synthetic replacement or zero filling is applied.")
         daily_prices.to_csv(raw_dir / "daily_etf_prices.csv")
-        source = "Stooq via pandas-datareader"
-        convention = "Month-end Close price returns; distribution-adjustment convention not independently verified"
+        source = "Yahoo Finance via yfinance"
+        convention = "Month-end Yahoo Adj Close returns; vendor adjustments include distributions and splits, and responses can change"
     elif mode == "synthetic":
         monthly_returns = generate_fallback_monthly_returns(end_date=pd.Timestamp(end or "2026-05-31"))
         source = "Deterministic synthetic generator"
@@ -232,8 +232,8 @@ def fetch_or_generate_monthly_returns(
                   "complete_months": len(monthly_returns), "dropped_incomplete_months": dropped_months,
                   "missing_value_policy": "Drop incomplete common months; no zero filling",
                   "assets": {ticker: {"source": source, "synthetic": mode == "synthetic",
-                                       "symbol": f"{ticker}.US" if mode == "market" else ticker,
-                                       "source_reference": f"https://stooq.com/q/?s={ticker.lower()}.us" if mode == "market" else "src/fetch_data.py::generate_fallback_monthly_returns",
+                                       "symbol": ticker,
+                                       "source_reference": f"https://finance.yahoo.com/quote/{ticker}/history/" if mode == "market" else "src/fetch_data.py::generate_fallback_monthly_returns",
                                        "return_convention": convention} for ticker in tickers},
                   "monthly_returns_sha256": hashlib.sha256((processed_dir / "monthly_returns.csv").read_bytes()).hexdigest()}
     if mode == "market":
