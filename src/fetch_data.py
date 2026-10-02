@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import hashlib
+import json
 
 import numpy as np
 import pandas as pd
@@ -14,9 +16,13 @@ def calculate_monthly_returns(daily_prices: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("Daily price data is empty.")
     prices = daily_prices.copy()
     prices.index = pd.to_datetime(prices.index)
-    prices = prices.sort_index().ffill()
+    if prices.index.hasnans or prices.index.has_duplicates:
+        raise ValueError("Daily price dates must be valid and unique.")
+    prices = prices.sort_index()
+    if (prices <= 0).any().any() or np.isinf(prices.to_numpy()).any():
+        raise ValueError("Observed prices must be finite and positive.")
     month_end_prices = prices.resample("ME").last()
-    returns = month_end_prices.pct_change().dropna(how="all")
+    returns = month_end_prices.pct_change(fill_method=None).dropna(how="all")
     return returns.dropna(axis=1, how="all")
 
 
@@ -188,35 +194,50 @@ def fetch_or_generate_monthly_returns(
     raw_dir: Path,
     start: str = "2015-01-01",
     end: str | None = None,
+    mode: str = "synthetic",
 ) -> pd.DataFrame:
-    """Fetch live ETF returns, with a complete synthetic fallback."""
+    """Run one explicit data mode; never combine market and simulated assets."""
     processed_dir.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
 
-    daily_prices = fetch_daily_prices(start=start, end=end)
-    if not daily_prices.empty:
-        daily_prices.to_csv(raw_dir / "daily_etf_prices.csv")
-
-    try:
-        live_returns = calculate_monthly_returns(daily_prices)
-    except Exception:
-        live_returns = pd.DataFrame()
-
     tickers = list(ETF_UNIVERSE)
-    if live_returns.shape[1] >= 8 and len(live_returns) >= 36:
-        live_returns = live_returns.reindex(columns=tickers)
-        missing = [ticker for ticker in tickers if live_returns[ticker].isna().all()]
+    dropped_months = []
+    if mode == "market":
+        daily_prices = fetch_daily_prices(start=start, end=end)
+        missing = sorted(set(tickers) - set(daily_prices.columns))
         if missing:
-            fallback = generate_fallback_monthly_returns(
-                periods=len(live_returns),
-                end_date=live_returns.index.max(),
-            )
-            for ticker in missing:
-                live_returns[ticker] = fallback[ticker].values
-        monthly_returns = live_returns[tickers].fillna(0.0)
+            raise ValueError(f"Market mode requires every ETF; unavailable: {', '.join(missing)}. Use explicit synthetic mode for an offline demo.")
+        live_returns = calculate_monthly_returns(daily_prices).reindex(columns=tickers)
+        dropped_months = live_returns.index[live_returns.isna().any(axis=1)].strftime("%Y-%m-%d").tolist()
+        monthly_returns = live_returns.dropna(how="any")
+        if not np.isfinite(monthly_returns.to_numpy()).all():
+            raise ValueError("Computed market returns must be finite.")
+        if len(monthly_returns) < 36:
+            raise ValueError("Market mode requires at least 36 complete common months; no synthetic replacement or zero filling is applied.")
+        daily_prices.to_csv(raw_dir / "daily_etf_prices.csv")
+        source = "Stooq via pandas-datareader"
+        convention = "Month-end Close price returns; distribution-adjustment convention not independently verified"
+    elif mode == "synthetic":
+        monthly_returns = generate_fallback_monthly_returns(end_date=pd.Timestamp(end or "2026-05-31"))
+        source = "Deterministic synthetic generator"
+        convention = "Simulated monthly returns; no historical market-performance claim"
     else:
-        monthly_returns = generate_fallback_monthly_returns()
+        raise ValueError("Data mode must be synthetic or market.")
 
     monthly_returns.index.name = "date"
     monthly_returns.to_csv(processed_dir / "monthly_returns.csv")
+    provenance = {"mode": mode, "seed": RANDOM_SEED if mode == "synthetic" else None,
+                  "start_date": str(monthly_returns.index.min().date()),
+                  "end_date": str(monthly_returns.index.max().date()),
+                  "complete_months": len(monthly_returns), "dropped_incomplete_months": dropped_months,
+                  "missing_value_policy": "Drop incomplete common months; no zero filling",
+                  "assets": {ticker: {"source": source, "synthetic": mode == "synthetic",
+                                       "symbol": f"{ticker}.US" if mode == "market" else ticker,
+                                       "source_reference": f"https://stooq.com/q/?s={ticker.lower()}.us" if mode == "market" else "src/fetch_data.py::generate_fallback_monthly_returns",
+                                       "return_convention": convention} for ticker in tickers},
+                  "monthly_returns_sha256": hashlib.sha256((processed_dir / "monthly_returns.csv").read_bytes()).hexdigest()}
+    if mode == "market":
+        provenance["daily_prices_sha256"] = hashlib.sha256((raw_dir / "daily_etf_prices.csv").read_bytes()).hexdigest()
+    (processed_dir / "monthly_returns_provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
+    monthly_returns.attrs["provenance"] = provenance
     return monthly_returns

@@ -111,7 +111,9 @@ def calculate_risk_metrics(
     benchmark_returns: pd.Series,
 ) -> dict[str, float | str]:
     portfolio = portfolio_returns(returns, weights)
-    benchmark = benchmark_returns.reindex(portfolio.index).fillna(0.0)
+    benchmark = benchmark_returns.reindex(portfolio.index)
+    if not np.isfinite(benchmark.to_numpy()).all():
+        raise ValueError("Benchmark coverage must be complete; missing months are not zero returns.")
     return {
         "profile_name": profile_name,
         "portfolio_name": portfolio_name,

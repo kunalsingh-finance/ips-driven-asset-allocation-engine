@@ -1,0 +1,8 @@
+{
+  "mode": "synthetic",
+  "source": "Deterministic synthetic factor generator",
+  "source_reference": "src/factor_model.py::generate_fallback_factors",
+  "seed": 49,
+  "factor_data_sha256": "e154e0794d3a3a8569f74780b8ff49df79bebcb4b302a5062668c9e4a99d0fe6",
+  "interpretation": "Synthetic diagnostics"
+}

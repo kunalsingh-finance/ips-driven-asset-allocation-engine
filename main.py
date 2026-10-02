@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import argparse
+import json
 
 import pandas as pd
 
@@ -27,10 +29,14 @@ PRIMARY_PROFILE_NAME = "Balanced Growth"
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="IPS allocation demonstration with one explicit source mode")
+    parser.add_argument("--data-mode", choices=["synthetic", "market"], default="synthetic")
+    parser.add_argument("--end", default="2026-05-31", help="Fixed synthetic month-end or market download end date")
+    args = parser.parse_args()
     paths = ensure_directories(PROJECT_ROOT)
 
     profiles = create_synthetic_ips_profiles(paths["raw"])
-    monthly_returns = fetch_or_generate_monthly_returns(paths["processed"], paths["raw"])
+    monthly_returns = fetch_or_generate_monthly_returns(paths["processed"], paths["raw"], end=args.end, mode=args.data_mode)
     monthly_returns.index = pd.to_datetime(monthly_returns.index)
 
     benchmark_returns: dict[str, pd.Series] = {}
@@ -60,7 +66,11 @@ def main() -> None:
         profile_name: portfolio_returns(monthly_returns, weights)
         for profile_name, weights in recommended_weights.items()
     }
-    factors = fetch_or_generate_factors(paths["processed"], monthly_returns.index)
+    factors = fetch_or_generate_factors(paths["processed"], monthly_returns.index, mode=args.data_mode)
+    provenance = {"mode": args.data_mode, "returns": monthly_returns.attrs["provenance"],
+                  "factors": factors.attrs["provenance"],
+                  "evaluation": "Same-sample allocation and factor diagnostics; no out-of-sample performance claim"}
+    (paths["output"] / "data_provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
     factor_summary = build_factor_exposure_summary(recommended_returns, factors)
     factor_summary.to_csv(paths["output"] / "factor_exposure_summary.csv", index=False)
     equity_factor_summary = build_equity_sleeve_factor_summary(monthly_returns, recommended_weights, factors)
@@ -120,6 +130,7 @@ def main() -> None:
         constraints_validation,
         stress_results,
         rebalancing_trades,
+        provenance=provenance,
     )
 
     excel_report = generate_excel_report(
@@ -138,9 +149,10 @@ def main() -> None:
         rebalancing_trades,
         efficient_frontier,
         chart_paths,
+        provenance=provenance,
     )
 
-    print("Pipeline complete.")
+    print(f"Pipeline complete. Source mode: {args.data_mode}; see output/data_provenance.json.")
     print(f"Monthly returns: {paths['processed'] / 'monthly_returns.csv'}")
     print(f"Portfolio risk summary: {paths['output'] / 'portfolio_risk_summary.csv'}")
     print(f"Factor exposure summary: {paths['output'] / 'factor_exposure_summary.csv'}")

@@ -8,6 +8,10 @@ The project is educational and does not represent financial advice, a live inves
 
 ## Screenshots
 
+These screenshots illustrate an earlier workbook layout. The regenerated report
+adds **Data Provenance** and **Source Summary** sheets; inspect those sheets and
+`output/data_provenance.json` to establish the current source mode.
+
 ### Executive Summary
 
 ![Executive Summary](docs/screenshots/executive_summary.png)
@@ -43,6 +47,10 @@ The project is educational and does not represent financial advice, a live inves
 
 ## Selected Results
 
+The figures below are **fully synthetic same-sample demonstration results** from
+the fixed seed 42, 132-month dataset ending May 31, 2026. They are neither realized
+investment performance nor out-of-sample evidence. Synthetic factors use seed 49.
+
 The final Balanced Growth model allocation is:
 
 - Equity: 45.0%
@@ -66,7 +74,7 @@ Risk contribution analysis identifies SPY, QQQ, and EFA as the largest estimated
 The project follows a portfolio analyst workflow:
 
 1. Create synthetic IPS profiles.
-2. Fetch public ETF data where available, with deterministic fallback data for reproducible offline runs.
+2. Choose one explicit data mode: fully synthetic offline data or complete market data. No silent fallback mixes the modes.
 3. Convert daily prices to month-end ETF returns.
 4. Build IPS benchmark returns.
 5. Construct constrained portfolio candidates.
@@ -127,7 +135,7 @@ pip install -r requirements.txt
 Run the full pipeline:
 
 ```bash
-python main.py
+python main.py --data-mode synthetic --end 2026-05-31
 ```
 
 Run tests:
@@ -154,13 +162,30 @@ ips-driven-asset-allocation-engine/
     └── screenshots/
 ```
 
-## Data Disclaimer
+## Data modes and provenance
 
-The project uses public ETF price data where available and deterministic synthetic fallback data when downloads fail. IPS profiles are synthetic because real client IPS data is private.
+The default `synthetic` mode makes no data requests. ETF and factor observations
+are generated separately from fixed seeds, labeled in the memo/charts/workbook,
+and exported with per-asset provenance and exact saved-input hashes. The fixed
+end date supports repeatable demonstration output; use `--end` to change it.
+
+`python main.py --data-mode market --end 2026-05-31` requires every ETF from
+Stooq and complete Kenneth French factor coverage. Missing ETFs or factor data
+stop the run, rather than introducing synthetic replacements. Incomplete common
+return months are dropped and recorded; missing returns and benchmarks are not
+filled with zero. Stooq Close distribution adjustments are not independently
+verified, so these are labeled price-return diagnostics rather than assured
+total-return observations. Source responses remain mutable.
+
+Inspect `output/data_provenance.json`, `data/processed/monthly_returns_provenance.json`
+and `data/processed/factor_provenance.json`. IPS profiles and rebalancing drift are
+synthetic in either mode. Allocations are estimated and evaluated on the same
+sample; no chronological out-of-sample performance claim is made. A failed market
+run does not validate artifacts from an earlier successful run.
 
 ## Limitations
 
-- Historical and fallback data may not represent future market conditions.
+- The declared synthetic or market sample may not represent future conditions.
 - Optimizer outputs are sensitive to return samples, covariance estimates, and constraints.
 - ETF proxies do not capture full fund due diligence, liquidity review, taxes, or account-level restrictions.
 - Stress tests are deterministic approximations and should not be treated as comprehensive scenario analysis.
