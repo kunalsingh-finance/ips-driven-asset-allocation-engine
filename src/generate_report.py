@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 from openpyxl.formatting.rule import CellIsRule, FormulaRule
@@ -92,6 +94,7 @@ def generate_charts(
     charts_dir.mkdir(parents=True, exist_ok=True)
     _set_chart_style()
     chart_paths: dict[str, Path] = {}
+    chart_caption = f"{returns.attrs.get('provenance', {}).get('mode', 'unverified').upper()} input data | same-sample diagnostics"
 
     path = charts_dir / "efficient_frontier.png"
     fig, ax = plt.subplots(figsize=(9, 6))
@@ -120,8 +123,9 @@ def generate_charts(
     ax.set_xlabel("Annualized Volatility")
     ax.set_ylabel("Annualized Return")
     ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
-    ax.yaxis.set_major_formatter(lambda y, _: f"{y:.0%}")
-    fig.tight_layout()
+    ax.yaxis.set_major_formatter(lambda y, _: f"{y:.1%}")
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["efficient_frontier"] = path
@@ -138,7 +142,8 @@ def generate_charts(
     ax.set_title(f"Recommended Allocation - {profile_name}")
     ax.set_xlabel("Portfolio Weight")
     ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["recommended_allocation"] = path
@@ -154,7 +159,8 @@ def generate_charts(
     ax.set_title(f"Cumulative Performance vs Benchmark - {profile_name}")
     ax.set_ylabel("Growth of $1")
     ax.set_xlabel("")
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["cumulative_performance"] = path
@@ -171,7 +177,8 @@ def generate_charts(
     ax.set_ylabel("Drawdown")
     ax.set_xlabel("")
     ax.yaxis.set_major_formatter(lambda y, _: f"{y:.0%}")
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["drawdown_comparison"] = path
@@ -185,7 +192,8 @@ def generate_charts(
     ax.axhline(0, color="#333333", linewidth=0.8)
     ax.set_title(f"Fama-French Factor Exposures - {profile_name}")
     ax.set_ylabel("Beta")
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["factor_exposures"] = path
@@ -200,7 +208,8 @@ def generate_charts(
     ax.axhline(0, color="#333333", linewidth=0.8)
     ax.set_title(f"Equity Sleeve Factor Exposures - {profile_name}")
     ax.set_ylabel("Beta")
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["equity_sleeve_factor_exposures"] = path
@@ -215,7 +224,8 @@ def generate_charts(
     ax.set_title(f"Risk Contribution - {profile_name}")
     ax.set_xlabel("Percent Contribution to Portfolio Volatility")
     ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["risk_contribution"] = path
@@ -230,7 +240,8 @@ def generate_charts(
     ax.set_title(f"Policy Drift - {profile_name}")
     ax.set_xlabel("Current Weight minus Target Weight")
     ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["policy_drift"] = path
@@ -248,7 +259,8 @@ def generate_charts(
     ax.set_xlabel("Scenario Return")
     ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
     ax.legend()
-    fig.tight_layout()
+    fig.suptitle(chart_caption, fontsize=10)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
     plt.close(fig)
     chart_paths["stress_test_results"] = path
@@ -270,7 +282,8 @@ def generate_charts(
         ax.set_xlabel("")
         ax.yaxis.set_major_formatter(lambda y, _: f"{y:.0%}")
         ax.legend()
-        fig.tight_layout()
+        fig.suptitle(chart_caption, fontsize=10)
+        fig.tight_layout(rect=[0, 0, 1, 0.95])
         fig.savefig(path, dpi=180)
         plt.close(fig)
         chart_paths[filename.replace(".png", "")] = path
@@ -307,7 +320,8 @@ def _format_workbook(path: Path) -> None:
         for column_cells in sheet.columns:
             column_letter = get_column_letter(column_cells[0].column)
             header = str(column_cells[0].value or "")
-            width = min(max(len(header), *(len(str(cell.value)) for cell in column_cells[1:] if cell.value is not None)) + 2, 48)
+            lengths = [len(header), *(len(str(cell.value)) for cell in column_cells[1:] if cell.value is not None)]
+            width = min(max(lengths) + 2, 48)
             sheet.column_dimensions[column_letter].width = width
             if header in PERCENT_COLUMNS:
                 for cell in column_cells[1:]:
@@ -319,6 +333,8 @@ def _format_workbook(path: Path) -> None:
                 for cell in column_cells[1:]:
                     cell.number_format = "0.00"
 
+            if max_row < 2:
+                continue
             if header in {
                 "annualized_return",
                 "best_month",
@@ -353,6 +369,12 @@ def _format_workbook(path: Path) -> None:
                     f"{column_letter}2:{column_letter}{max_row}",
                     FormulaRule(formula=[f'{column_letter}2="FAIL"'], fill=fail_fill),
                 )
+        if sheet.title in {"Data Provenance", "Source Summary"}:
+            sheet.row_dimensions[1].height = 30
+            for row in sheet.iter_rows(min_row=2):
+                sheet.row_dimensions[row[0].row].height = 60
+                for cell in row:
+                    cell.alignment = Alignment(wrap_text=True, vertical="top")
 
     workbook.save(path)
 
@@ -530,6 +552,7 @@ def generate_excel_report(
     rebalancing_trades: pd.DataFrame,
     efficient_frontier: pd.DataFrame,
     chart_paths: dict[str, Path],
+    provenance: dict | None = None,
 ) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -556,7 +579,7 @@ def generate_excel_report(
     methodology = pd.DataFrame(
         [
             {"section": "Purpose", "description": "Educational workflow for IPS-driven ETF allocation and monitoring."},
-            {"section": "Data", "description": "Public ETF data is attempted first; saved synthetic fallback data supports offline runs."},
+            {"section": "Data", "description": f"Explicit {(provenance or {}).get('mode', 'unverified')} mode. See Data Provenance for per-asset sources and hashes; no silent source mixing."},
             {"section": "Optimization", "description": "SLSQP optimization with no shorting, IPS asset-class ranges, and max ETF weight limits."},
             {"section": "Risk", "description": "Return, volatility, Sharpe, Sortino, drawdown, VaR, CVaR, beta, tracking error, and information ratio."},
             {"section": "Factors", "description": "Fama-French regression is included as a diagnostic, but explanatory power is limited for a full multi-asset portfolio."},
@@ -574,6 +597,12 @@ def generate_excel_report(
 
     with pd.ExcelWriter(output_path, engine="openpyxl") as writer:
         _write_executive_summary_dashboard(writer.book, summary)
+        if provenance:
+            writer.book["Executive Summary"].merge_cells("A2:F2")
+            writer.book["Executive Summary"].row_dimensions[2].height = 24
+            mode_note = writer.book["Executive Summary"].cell(row=2, column=1)
+            mode_note.value = f"{provenance['mode'].upper()} inputs | same-sample diagnostics | see Data Provenance"
+            mode_note.font = Font(bold=True, size=10, color="9C0006")
         profiles.to_excel(writer, sheet_name="IPS Profile", index=False)
         allocation.to_excel(writer, sheet_name="Recommended Allocation", index=False)
         frontier_export.to_excel(writer, sheet_name="Efficient Frontier", index=False)
@@ -599,6 +628,20 @@ def generate_excel_report(
         etf_rationale.to_excel(writer, sheet_name="ETF Rationale", index=False)
         constraints_validation.to_excel(writer, sheet_name="Constraint Validation", index=False)
         methodology.to_excel(writer, sheet_name="Methodology", index=False)
+        if provenance:
+            pd.DataFrame([{"asset": asset, **details} for asset, details in provenance["returns"]["assets"].items()]).to_excel(writer, sheet_name="Data Provenance", index=False)
+            pd.DataFrame([{"section": "Returns", "interpretation": provenance["mode"],
+                           "run_id": provenance.get("run_id"),
+                           "start_date": provenance["returns"].get("start_date"),
+                           "end_date": provenance["returns"].get("end_date"),
+                           "monthly_returns_sha256": provenance["returns"]["monthly_returns_sha256"],
+                           "complete_months": provenance["returns"]["complete_months"]},
+                          {"section": "Factors", **provenance["factors"]},
+                          {"section": "Evaluation", "interpretation": provenance["evaluation"]},
+                          {"section": "Publication", "run_id": provenance.get("run_id"),
+                           "start_date": provenance["returns"].get("start_date"),
+                           "end_date": provenance["returns"].get("end_date"),
+                           "requested_end": provenance.get("requested_end")}]).to_excel(writer, sheet_name="Source Summary", index=False)
 
     _format_workbook(output_path)
     return output_path
@@ -617,6 +660,7 @@ def generate_investment_memo(
     constraints_validation: pd.DataFrame,
     stress_results: pd.DataFrame,
     rebalancing_trades: pd.DataFrame,
+    provenance: dict | None = None,
 ) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     profile_name = str(profile["profile_name"])
@@ -755,7 +799,7 @@ Estimated transaction costs are ${trades["estimated_transaction_cost"].sum():,.0
 
 ## Key Risks
 
-- Historical data and synthetic fallback returns may not represent future conditions.
+- The declared source mode is a sample assumption; synthetic results are not historical market performance and neither mode predicts future outcomes.
 - Optimization is sensitive to expected returns, covariance estimates, and the selected risk-free-rate assumption.
 - ETF proxies simplify implementation and do not capture manager selection, taxes, liquidity tiers, or mandate-specific restrictions.
 - Stress tests are deterministic approximations and should be expanded for real committee use.
@@ -775,5 +819,12 @@ This project is an educational portfolio analytics workflow. It is not a substit
 - Liquidity scoring.
 - Manager and fund due diligence layer.
 """
+    if provenance:
+        memo = memo.replace("## Executive Recommendation", "## Data provenance\n\n"
+                            f"Source mode: **{provenance['mode']}**. ETF source: {next(iter(provenance['returns']['assets'].values()))['source']}. "
+                            f"Factor source: {provenance['factors']['source']}. "
+                            "No market/synthetic asset substitution or zero return filling is applied. "
+                            f"{provenance['evaluation']}. Inspect data_provenance.json and the workbook's Data Provenance sheet for every asset.\n\n"
+                            "## Executive Recommendation")
     output_path.write_text(memo, encoding="utf-8")
     return output_path

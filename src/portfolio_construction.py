@@ -116,8 +116,16 @@ def _profile_group_limits(profile: pd.Series | dict) -> list[dict[str, object]]:
 
 
 def portfolio_returns(returns: pd.DataFrame, weights: pd.Series | dict[str, float]) -> pd.Series:
-    weight_series = pd.Series(weights, dtype=float).reindex(returns.columns).fillna(0.0)
-    return returns.fillna(0.0).dot(weight_series)
+    supplied = pd.Series(weights, dtype=float)
+    if not np.isfinite(supplied.to_numpy()).all():
+        raise ValueError("Portfolio weights must be finite.")
+    missing = supplied.index[(supplied != 0) & ~supplied.index.isin(returns.columns)]
+    if len(missing):
+        raise ValueError(f"Missing return data for weighted assets: {', '.join(missing)}")
+    if not np.isfinite(returns.to_numpy()).all():
+        raise ValueError("Portfolio returns require complete finite input observations; missing returns are not zero.")
+    weight_series = supplied.reindex(returns.columns).fillna(0.0)
+    return returns.dot(weight_series)
 
 
 def class_allocation(weights: pd.Series | dict[str, float]) -> dict[str, float]:
@@ -433,7 +441,9 @@ def ips_recommended_portfolio(
     risk_free_rate: float = 0.02,
 ) -> pd.Series:
     values = returns.values
-    benchmark = benchmark_returns.reindex(returns.index).fillna(0.0).values
+    benchmark = benchmark_returns.reindex(returns.index).values
+    if not np.isfinite(benchmark).all():
+        raise ValueError("Benchmark coverage must be complete; missing months are not zero returns.")
     target_vol = float(dict(profile)["max_volatility_target"]) * 0.95
     tickers = list(returns.columns)
 

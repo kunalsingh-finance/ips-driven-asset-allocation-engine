@@ -8,6 +8,10 @@ The project is educational and does not represent financial advice, a live inves
 
 ## Screenshots
 
+These screenshots illustrate an earlier workbook layout. The regenerated report
+adds **Data Provenance** and **Source Summary** sheets; inspect those sheets and
+`output/data_provenance.json` to establish the current source mode.
+
 ### Executive Summary
 
 ![Executive Summary](docs/screenshots/executive_summary.png)
@@ -43,6 +47,10 @@ The project is educational and does not represent financial advice, a live inves
 
 ## Selected Results
 
+The figures below are **fully synthetic same-sample demonstration results** from
+the fixed seed 42, 132-month dataset ending May 31, 2026. They are neither realized
+investment performance nor out-of-sample evidence. Synthetic factors use seed 49.
+
 The final Balanced Growth model allocation is:
 
 - Equity: 45.0%
@@ -66,7 +74,7 @@ Risk contribution analysis identifies SPY, QQQ, and EFA as the largest estimated
 The project follows a portfolio analyst workflow:
 
 1. Create synthetic IPS profiles.
-2. Fetch public ETF data where available, with deterministic fallback data for reproducible offline runs.
+2. Choose one explicit data mode: fully synthetic offline data or complete market data. No silent fallback mixes the modes.
 3. Convert daily prices to month-end ETF returns.
 4. Build IPS benchmark returns.
 5. Construct constrained portfolio candidates.
@@ -127,7 +135,7 @@ pip install -r requirements.txt
 Run the full pipeline:
 
 ```bash
-python main.py
+python main.py --data-mode synthetic --end 2026-05-31
 ```
 
 Run tests:
@@ -154,13 +162,78 @@ ips-driven-asset-allocation-engine/
     └── screenshots/
 ```
 
-## Data Disclaimer
+## Data modes and provenance
 
-The project uses public ETF price data where available and deterministic synthetic fallback data when downloads fail. IPS profiles are synthetic because real client IPS data is private.
+The default `synthetic` mode makes no data requests. ETF and factor observations
+are generated separately from fixed seeds, labeled in the memo/charts/workbook,
+and exported with per-asset provenance and exact saved-input hashes. The fixed
+end date supports repeatable demonstration output; use `--end` to change it.
+
+`python main.py --data-mode market --end 2026-05-31` requires every ETF from
+Yahoo Finance adjusted closes and complete Kenneth French factor coverage. Missing ETFs or factor data
+stop the run, rather than introducing synthetic replacements. Incomplete common
+return months are dropped and recorded; missing returns and benchmarks are not
+filled with zero. `--end` is inclusive; a mid-month end excludes that partial
+month from monthly diagnostics. Yahoo's adjusted prices account for distributions
+and splits according to its vendor convention; these mutable source responses
+are not a fund accounting or independently reconciled total-return series.
+Stooq's previous download endpoint returned HTTP 404 during the October 2026
+functional check, so market mode now uses the explicit Yahoo source above.
+
+Inspect `output/data_provenance.json`, `data/processed/monthly_returns_provenance.json`
+and `data/processed/factor_provenance.json`. IPS profiles and rebalancing drift are
+synthetic in either mode. Allocations are estimated and evaluated on the same
+sample; no chronological out-of-sample performance claim is made. A failed market
+run does not validate artifacts from an earlier successful run.
+
+## Complete report publication
+
+The pipeline stages its saved inputs, tables, charts, memo and Excel workbook
+before replacing any completed artifacts. It acquires and validates both ETF
+returns and factors before constructing the allocation. A failed download,
+calculation, chart or workbook export preserves the prior complete report.
+If replacement fails, the pipeline restores the previous files; if a locked file
+prevents restoration, it retains recovery copies for manual recovery.
+
+`output/run_status.json` records RUNNING, SUCCESS or FAILED for the latest attempt.
+`output/run_manifest.json` identifies the successful run and hashes every owned
+input and report file. A previous workbook remains readable after a failed attempt,
+but it does not establish that the latest attempt succeeded. Verify the current
+pack before using or sharing it:
+
+```bash
+python main.py --verify-only
+```
+
+Git attributes preserve the exact bytes of saved input and report files, so the
+committed example can be verified on Windows and Linux without changing CSV line
+endings or invalidating its recorded hashes.
+
+Verification rejects failed or unfinished attempts, missing or changed files,
+and inconsistent input provenance or workbook/CSV readback. Computations and
+verification share an exclusive project lock, so overlapping attempts stop before
+changing the pack. Other user files are preserved. A successful synthetic run
+removes the owned raw market-price file from an earlier market run.
+Invalid command options or calendar dates are rejected before starting a new
+computation and leave the previous completed pack unchanged. Once a computation
+starts, any data, calculation or publication failure marks the attempt FAILED.
+
+To generate and verify an isolated report without replacing the repository's
+saved example, choose a separate project directory:
+
+```bash
+python main.py --project-dir output_example --data-mode synthetic --end 2026-05-31
+python main.py --project-dir output_example --verify-only
+```
+
+Earlier saved packs without publication controls must be rebuilt. Standalone
+source helpers export data for diagnostics; use the complete pipeline to produce
+a report-ready pack. These controls verify consistency, not independent vendor
+data accuracy or future investment performance.
 
 ## Limitations
 
-- Historical and fallback data may not represent future market conditions.
+- The declared synthetic or market sample may not represent future conditions.
 - Optimizer outputs are sensitive to return samples, covariance estimates, and constraints.
 - ETF proxies do not capture full fund due diligence, liquidity review, taxes, or account-level restrictions.
 - Stress tests are deterministic approximations and should not be treated as comprehensive scenario analysis.

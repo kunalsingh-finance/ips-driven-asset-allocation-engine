@@ -1,5 +1,9 @@
 # Investment Committee Memo
 
+## Data provenance
+
+Source mode: **synthetic**. ETF source: Deterministic synthetic generator. Factor source: Deterministic synthetic factor generator. No market/synthetic asset substitution or zero return filling is applied. Same-sample allocation and factor diagnostics; no out-of-sample performance claim. Inspect data_provenance.json and the workbook's Data Provenance sheet for every asset.
+
 ## Executive Recommendation
 
 This educational analysis recommends the **Balanced Growth** IPS allocation as a model portfolio for committee review. The recommendation is framed as an educational investment workflow, not financial advice, not a live investment recommendation, and not production investment software.
@@ -68,7 +72,7 @@ The factor regression shows limited explanatory power for the full multi-asset p
 
 ## Equity-Sleeve Factor Analysis
 
-The equity-sleeve regression normalizes only the equity ETF weights to 100% and runs the same Fama-French regression on that equity-only return stream. This is more appropriate for explaining equity return drivers because the regression is no longer diluted by bonds, cash, gold, and alternatives. The equity-sleeve regression R-squared is 0.02. A future version would extend this approach with separate fixed-income attribution for duration, curve, and credit-spread exposures.
+The equity-sleeve regression normalizes only the equity ETF weights to 100% and runs the same Fama-French regression on that equity-only return stream. This is more appropriate for explaining equity return drivers because the regression is no longer diluted by bonds, cash, gold, and alternatives. The equity-sleeve regression R-squared is 0.01. A future version would extend this approach with separate fixed-income attribution for duration, curve, and credit-spread exposures.
 
 ## Stress-Test Summary
 
@@ -86,7 +90,7 @@ Estimated transaction costs are $8,500 on a $100,000,000 illustrative portfolio.
 
 ## Key Risks
 
-- Historical data and synthetic fallback returns may not represent future conditions.
+- The declared source mode is a sample assumption; synthetic results are not historical market performance and neither mode predicts future outcomes.
 - Optimization is sensitive to expected returns, covariance estimates, and the selected risk-free-rate assumption.
 - ETF proxies simplify implementation and do not capture manager selection, taxes, liquidity tiers, or mandate-specific restrictions.
 - Stress tests are deterministic approximations and should be expanded for real committee use.
@@ -105,3 +109,8 @@ This project is an educational portfolio analytics workflow. It is not a substit
 - Tax-aware rebalancing.
 - Liquidity scoring.
 - Manager and fund due diligence layer.
+
+
+## Publication
+
+Run id: `6dcc8d9852ce4a228f2e6607227bf609`. Input sample: 2015-06-30 to 2026-05-31 (132 complete months); requested end: 2026-05-31.

@@ -1,0 +1,127 @@
+{
+  "run_id": "6dcc8d9852ce4a228f2e6607227bf609",
+  "mode": "synthetic",
+  "requested_end": "2026-05-31",
+  "start_date": "2015-06-30",
+  "end_date": "2026-05-31",
+  "complete_months": 132,
+  "returns": {
+    "mode": "synthetic",
+    "seed": 42,
+    "start_date": "2015-06-30",
+    "end_date": "2026-05-31",
+    "complete_months": 132,
+    "dropped_incomplete_months": [],
+    "missing_value_policy": "Drop incomplete common months; no zero filling",
+    "assets": {
+      "SPY": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "SPY",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "QQQ": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "QQQ",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "IWM": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "IWM",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "EFA": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "EFA",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "EEM": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "EEM",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "AGG": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "AGG",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "TLT": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "TLT",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "SHY": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "SHY",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "LQD": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "LQD",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "HYG": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "HYG",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "VNQ": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "VNQ",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "GLD": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "GLD",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "DBC": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "DBC",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      },
+      "SGOV": {
+        "source": "Deterministic synthetic generator",
+        "synthetic": true,
+        "symbol": "SGOV",
+        "source_reference": "src/fetch_data.py::generate_fallback_monthly_returns",
+        "return_convention": "Simulated monthly returns; no historical market-performance claim"
+      }
+    },
+    "monthly_returns_sha256": "21ef359c814c516f99b2af719280741dde5d858a92fac4df608b97630f211c8c"
+  },
+  "factors": {
+    "mode": "synthetic",
+    "source": "Deterministic synthetic factor generator",
+    "source_reference": "src/factor_model.py::generate_fallback_factors",
+    "seed": 49,
+    "factor_data_sha256": "e154e0794d3a3a8569f74780b8ff49df79bebcb4b302a5062668c9e4a99d0fe6",
+    "interpretation": "Synthetic diagnostics"
+  },
+  "evaluation": "Same-sample allocation and factor diagnostics; no out-of-sample performance claim"
+}

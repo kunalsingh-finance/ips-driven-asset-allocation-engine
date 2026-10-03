@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import hashlib
+import json
 import warnings
 
 import numpy as np
@@ -38,10 +40,10 @@ def generate_fallback_factors(index: pd.DatetimeIndex, seed: int = RANDOM_SEED) 
     return factors.round(6)
 
 
-def fetch_or_generate_factors(processed_dir: Path, returns_index: pd.DatetimeIndex) -> pd.DataFrame:
+def fetch_or_generate_factors(processed_dir: Path, returns_index: pd.DatetimeIndex, mode: str = "synthetic") -> pd.DataFrame:
     processed_dir.mkdir(parents=True, exist_ok=True)
     path = processed_dir / "fama_french_factors.csv"
-    try:
+    if mode == "market":
         from pandas_datareader import data as pdr
 
         start = pd.Timestamp(returns_index.min()).to_pydatetime()
@@ -50,14 +52,23 @@ def fetch_or_generate_factors(processed_dir: Path, returns_index: pd.DatetimeInd
             factors_raw = pdr.DataReader("F-F_Research_Data_5_Factors_2x3", "famafrench", start=start)[0]
         factors = factors_raw.copy() / 100.0
         factors.index = factors.index.to_timestamp("M")
-        factors = factors.reindex(month_end_index(returns_index)).dropna(how="any")
-        if len(factors) >= max(24, int(len(returns_index) * 0.5)):
-            factors = factors[FACTOR_COLUMNS]
-        else:
-            factors = generate_fallback_factors(returns_index)
-    except Exception:
+        factors = factors.reindex(month_end_index(returns_index))[FACTOR_COLUMNS]
+        if factors.isna().any().any() or not np.isfinite(factors.to_numpy()).all():
+            raise ValueError("Market mode needs complete finite factor coverage; synthetic fallback is disabled.")
+        source = "Kenneth French Data Library via pandas-datareader"
+    elif mode == "synthetic":
         factors = generate_fallback_factors(returns_index)
+        source = "Deterministic synthetic factor generator"
+    else:
+        raise ValueError("Factor mode must be synthetic or market.")
     factors.to_csv(path)
+    provenance = {"mode": mode, "source": source,
+                  "source_reference": "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html" if mode == "market" else "src/factor_model.py::generate_fallback_factors",
+                  "seed": RANDOM_SEED + 7 if mode == "synthetic" else None,
+                  "factor_data_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                  "interpretation": "Synthetic diagnostics" if mode == "synthetic" else "Historical factor diagnostics"}
+    (processed_dir / "factor_provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
+    factors.attrs["provenance"] = provenance
     return factors
 
 
