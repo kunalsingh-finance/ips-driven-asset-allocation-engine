@@ -1,0 +1,5 @@
+# Publication hashes identify exact artifact bytes across Git checkouts.
+data/raw/** -text
+data/processed/** -text
+output/** -text
+charts/** -text

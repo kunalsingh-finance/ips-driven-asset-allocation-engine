@@ -186,6 +186,51 @@ synthetic in either mode. Allocations are estimated and evaluated on the same
 sample; no chronological out-of-sample performance claim is made. A failed market
 run does not validate artifacts from an earlier successful run.
 
+## Complete report publication
+
+The pipeline stages its saved inputs, tables, charts, memo and Excel workbook
+before replacing any completed artifacts. It acquires and validates both ETF
+returns and factors before constructing the allocation. A failed download,
+calculation, chart or workbook export preserves the prior complete report.
+If replacement fails, the pipeline restores the previous files; if a locked file
+prevents restoration, it retains recovery copies for manual recovery.
+
+`output/run_status.json` records RUNNING, SUCCESS or FAILED for the latest attempt.
+`output/run_manifest.json` identifies the successful run and hashes every owned
+input and report file. A previous workbook remains readable after a failed attempt,
+but it does not establish that the latest attempt succeeded. Verify the current
+pack before using or sharing it:
+
+```bash
+python main.py --verify-only
+```
+
+Git attributes preserve the exact bytes of saved input and report files, so the
+committed example can be verified on Windows and Linux without changing CSV line
+endings or invalidating its recorded hashes.
+
+Verification rejects failed or unfinished attempts, missing or changed files,
+and inconsistent input provenance or workbook/CSV readback. Computations and
+verification share an exclusive project lock, so overlapping attempts stop before
+changing the pack. Other user files are preserved. A successful synthetic run
+removes the owned raw market-price file from an earlier market run.
+Invalid command options or calendar dates are rejected before starting a new
+computation and leave the previous completed pack unchanged. Once a computation
+starts, any data, calculation or publication failure marks the attempt FAILED.
+
+To generate and verify an isolated report without replacing the repository's
+saved example, choose a separate project directory:
+
+```bash
+python main.py --project-dir output_example --data-mode synthetic --end 2026-05-31
+python main.py --project-dir output_example --verify-only
+```
+
+Earlier saved packs without publication controls must be rebuilt. Standalone
+source helpers export data for diagnostics; use the complete pipeline to produce
+a report-ready pack. These controls verify consistency, not independent vendor
+data accuracy or future investment performance.
+
 ## Limitations
 
 - The declared synthetic or market sample may not represent future conditions.

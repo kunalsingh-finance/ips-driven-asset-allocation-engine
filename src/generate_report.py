@@ -123,7 +123,7 @@ def generate_charts(
     ax.set_xlabel("Annualized Volatility")
     ax.set_ylabel("Annualized Return")
     ax.xaxis.set_major_formatter(lambda x, _: f"{x:.0%}")
-    ax.yaxis.set_major_formatter(lambda y, _: f"{y:.0%}")
+    ax.yaxis.set_major_formatter(lambda y, _: f"{y:.1%}")
     fig.suptitle(chart_caption, fontsize=10)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(path, dpi=180)
@@ -631,10 +631,17 @@ def generate_excel_report(
         if provenance:
             pd.DataFrame([{"asset": asset, **details} for asset, details in provenance["returns"]["assets"].items()]).to_excel(writer, sheet_name="Data Provenance", index=False)
             pd.DataFrame([{"section": "Returns", "interpretation": provenance["mode"],
+                           "run_id": provenance.get("run_id"),
+                           "start_date": provenance["returns"].get("start_date"),
+                           "end_date": provenance["returns"].get("end_date"),
                            "monthly_returns_sha256": provenance["returns"]["monthly_returns_sha256"],
                            "complete_months": provenance["returns"]["complete_months"]},
                           {"section": "Factors", **provenance["factors"]},
-                          {"section": "Evaluation", "interpretation": provenance["evaluation"]}]).to_excel(writer, sheet_name="Source Summary", index=False)
+                          {"section": "Evaluation", "interpretation": provenance["evaluation"]},
+                          {"section": "Publication", "run_id": provenance.get("run_id"),
+                           "start_date": provenance["returns"].get("start_date"),
+                           "end_date": provenance["returns"].get("end_date"),
+                           "requested_end": provenance.get("requested_end")}]).to_excel(writer, sheet_name="Source Summary", index=False)
 
     _format_workbook(output_path)
     return output_path

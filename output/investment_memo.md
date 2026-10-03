@@ -109,3 +109,8 @@ This project is an educational portfolio analytics workflow. It is not a substit
 - Tax-aware rebalancing.
 - Liquidity scoring.
 - Manager and fund due diligence layer.
+
+
+## Publication
+
+Run id: `6dcc8d9852ce4a228f2e6607227bf609`. Input sample: 2015-06-30 to 2026-05-31 (132 complete months); requested end: 2026-05-31.

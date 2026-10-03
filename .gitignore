@@ -8,3 +8,6 @@ venv/
 .pytest_cache/
 ~$*.xlsx
 .Rhistory
+.ips-publication.lock
+.ips-stage-*/
+.ips-recovery-*/

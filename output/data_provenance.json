@@ -1,5 +1,10 @@
 {
+  "run_id": "6dcc8d9852ce4a228f2e6607227bf609",
   "mode": "synthetic",
+  "requested_end": "2026-05-31",
+  "start_date": "2015-06-30",
+  "end_date": "2026-05-31",
+  "complete_months": 132,
   "returns": {
     "mode": "synthetic",
     "seed": 42,
